@@ -1,7 +1,8 @@
 name: Update talosctl winget package
-on:
-  schedule:
-    - cron:  '5 * * * *'
+# on:
+#   schedule:
+#     - cron:  '5 * * * *'
+on: [push]
 jobs:
   winget:
     name: Publish talosctl winget package
