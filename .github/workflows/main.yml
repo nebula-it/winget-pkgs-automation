@@ -1,0 +1,28 @@
+name: Update talosctl winget package
+on:
+  schedule:
+    - cron:  '0 23 * * *'
+jobs:
+  winget:
+    name: Publish talosctl winget package
+    runs-on: windows-latest
+    steps:
+      - name: Submit package to Windows Package Manager Community Repository
+        run: |
+          # Get Latest version of Talos releases
+          $req = Invoke-RestMethod https://api.github.com/repos/siderolabs/talos/releases/latest
+          # Get Latest version number, remove `v` from front of string
+          $talosLatestVersion = $req.tag_name.substring(1)
+          # Get download url for windows exe
+          $talosLatestVersionDownloadURL = $req.assets | Where-Object name -eq 'talosctl-windows-amd64.exe' | Select-Object -ExpandProperty browser_download_url
+          
+          
+          # Get contents of 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/Sidero/talosctl'
+          $wingetPackageList = Invoke-RestMethod "https://api.github.com/repos/microsoft/winget-pkgs/contents/manifests/s/Sidero/talosctl" 
+          # Get latest version of talos package on Winget 
+          $wingetLatestVersion = $wingetPackageList | Select-Object -Last 1 | Select-Object -ExpandProperty name
+          
+          if ($talosLatestVersion -ne $wingetLatestVersion) {
+            Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+            .\wingetcreate.exe update 'Sidero.talosctl' -s -v $talosLatestVersion -u $talosLatestVersionDownloadURL -t ${{ secrets.WINGET_PAT }}
+          }
