@@ -24,6 +24,7 @@ jobs:
           $wingetLatestVersion = $wingetPackageList | Select-Object -Last 1 | Select-Object -ExpandProperty name
           
           if ($talosLatestVersion -ne $wingetLatestVersion) {
+            Write-Host "Upgrading talosctl pkgs from '$wingetLatestVersion' to '$talosLatestVersion'"
             Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
             .\wingetcreate.exe update 'Sidero.talosctl' -s -v $talosLatestVersion -u $talosLatestVersionDownloadURL -t ${{ secrets.WINGET_PAT }}
           }
