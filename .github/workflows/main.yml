@@ -27,3 +27,6 @@ jobs:
             Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
             .\wingetcreate.exe update 'Sidero.talosctl' -s -v $talosLatestVersion -u $talosLatestVersionDownloadURL -t ${{ secrets.WINGET_PAT }}
           }
+          else {
+            Write-Host "Latest version of talosctl is already present in Winget."
+          }
