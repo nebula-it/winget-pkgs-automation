@@ -7,8 +7,12 @@ jobs:
     steps:
       - name: Submit package to Windows Package Manager Community Repository
         run: |
+          # Prepare headers for auth
+          $headers = @{
+            Authorization="Bearer ${{ secrets.GITHUB_TOKEN }}"
+          }
           # Get Latest version of Talos releases
-          $req = Invoke-RestMethod https://api.github.com/repos/siderolabs/talos/releases/latest
+          $req = Invoke-RestMethod https://api.github.com/repos/siderolabs/talos/releases/latest -Headers $headers
           # Get Latest version number, remove `v` from front of string
           $talosLatestVersion = $req.tag_name.substring(1)
           # Get download url for windows exe
@@ -16,7 +20,7 @@ jobs:
           
           
           # Get contents of 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/Sidero/talosctl'
-          $wingetPackageList = Invoke-RestMethod "https://api.github.com/repos/microsoft/winget-pkgs/contents/manifests/s/Sidero/talosctl" 
+          $wingetPackageList = Invoke-RestMethod "https://api.github.com/repos/microsoft/winget-pkgs/contents/manifests/s/Sidero/talosctl" -Headers $headers
           # Get latest version of talos package on Winget 
           $wingetLatestVersion = $wingetPackageList | Select-Object -Last 1 | Select-Object -ExpandProperty name
           
