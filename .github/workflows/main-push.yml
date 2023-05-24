@@ -1,7 +1,4 @@
 name: Update talosctl winget package-PUSH
-# on:
-#   schedule:
-#     - cron:  '0 3 * * *'
 on: [push]
 jobs:
   winget:
