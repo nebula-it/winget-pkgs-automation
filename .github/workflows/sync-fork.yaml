@@ -16,3 +16,4 @@ jobs:
           repo:  winget-pkgs
           base: master
           head: master
+          token: ${{ secrets.WINGET_PAT }}
