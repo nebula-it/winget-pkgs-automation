@@ -17,3 +17,4 @@ jobs:
           base: master
           head: master
           token: ${{ secrets.WINGET_PAT }}
+          owner: nebula-it
