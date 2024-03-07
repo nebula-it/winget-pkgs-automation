@@ -13,5 +13,5 @@ jobs:
     steps:
       - run: gh repo sync $REPOSITORY
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           REPOSITORY: nebula-it/winget-pkgs
