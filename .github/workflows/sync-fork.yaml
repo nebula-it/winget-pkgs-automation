@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: gh repo sync $REPOSITORY -b $BRANCH_NAME
+      - run: gh repo sync $REPOSITORY
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPOSITORY: winget-pkgs
-          BRANCH_NAME: master
+          REPOSITORY: nebula-it/winget-pkgs
