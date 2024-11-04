@@ -21,6 +21,8 @@ foreach ($package in $packages) {
 
   $packageIdentifier = $packageInfo.packageIdentifier
   if (-not $packageIdentifier){
+    # If no $packageIdentifier is defined in packages manifest, we construct one using the wingetManifestPath. Where the second last 
+    # subpath is org name and last bit of path is package name
     $packageIdentifier = "$(($packageInfo.wingetManifestPath).split('/')[-2]).$(($packageInfo.wingetManifestPath).split('/')[-1])"
   }
   if ($latestVersion -ne $wingetLatestVersion) {
