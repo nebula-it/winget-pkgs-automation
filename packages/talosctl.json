@@ -1,0 +1,6 @@
+{
+  "name": "talosctl",
+  "repoUrl": "siderolabs/talos",
+  "wingetManifestPath": "manifests/s/Sidero/talosctl",
+  "packageIdentifier" : "Sidero.talosctl"
+}

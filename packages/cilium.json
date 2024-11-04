@@ -1,0 +1,6 @@
+{
+  "name": "cilium",
+  "repoUrl": "cilium/cilium-cli",
+  "wingetManifestPath": "manifests/c/Cilium/CiliumCLI",
+  "packageIdentifier" : "Cilium.CiliumCLI"
+}

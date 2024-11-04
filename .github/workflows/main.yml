@@ -6,31 +6,16 @@ jobs:
   winget:
     name: Publish talosctl winget package
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      WINGET_PAT: ${{ secrets.WINGET_PAT }}
     steps:
-      - name: Submit package to Windows Package Manager Community Repository
+      - name: Checkout code 👋
+        uses: actions/checkout@v4
+      - name: Create manifest and submit PR 📦
         run: |
-          # Prepare headers for auth
-          $headers = @{
-            Authorization="Bearer ${{ secrets.GITHUB_TOKEN }}"
-          }
-          # Get Latest version of Talos releases
-          $req = Invoke-RestMethod https://api.github.com/repos/siderolabs/talos/releases/latest -Headers $headers
-          # Get Latest version number, remove `v` from front of string
-          $talosLatestVersion = $req.tag_name.substring(1)
-          # Get download url for windows exe
-          $talosLatestVersionDownloadURL = $req.assets | Where-Object name -eq 'talosctl-windows-amd64.exe' | Select-Object -ExpandProperty browser_download_url
-          
-          
-          # Get contents of 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/Sidero/talosctl'
-          $wingetPackageList = Invoke-RestMethod "https://api.github.com/repos/microsoft/winget-pkgs/contents/manifests/s/Sidero/talosctl" -Headers $headers
-          # Get latest version of talos package on Winget 
-          $wingetLatestVersion = $wingetPackageList | Select-Object -Last 1 | Select-Object -ExpandProperty name
-          
-          if ($talosLatestVersion -ne $wingetLatestVersion) {
-            Write-Host "Upgrading talosctl pkgs from '$wingetLatestVersion' to '$talosLatestVersion'"
-            Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-            .\wingetcreate.exe update 'Sidero.talosctl' -s -v $talosLatestVersion -u $talosLatestVersionDownloadURL -t ${{ secrets.WINGET_PAT }}
-          }
-          else {
-            Write-Host "Latest version of talosctl is already present in Winget."
-          }
+          ./createManifest.ps1
