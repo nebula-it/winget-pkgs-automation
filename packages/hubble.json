@@ -1,0 +1,6 @@
+{
+  "name": "hubble",
+  "repoUrl": "cilium/hubble",
+  "wingetManifestPath": "manifests/c/Cilium/Hubble",
+  "packageIdentifier" : "Cilium.Hubble"
+}

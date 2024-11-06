@@ -1,10 +1,15 @@
 # Prepare headers for auth
-$headers = @{
-  Authorization = "Bearer $($env:GITHUB_TOKEN)"
+# Only create header if env var exists, this helps with local run where this does not exist
+# And it is not usually required, we are using it here to avoid any API rate limits
+if ($env:GITHUB_TOKEN) {
+  $headers = @{
+    Authorization = "Bearer $($env:GITHUB_TOKEN)"
+  }
 }
 
 $packages = Get-ChildItem .\packages -Exclude schema.json
 foreach ($package in $packages) {
+  Write-Output "======== Working on Package $($package.Name) ========"
   $packageInfo = Get-Content -Raw $package | ConvertFrom-Json
   # Get Latest version of Package releases
   $req = Invoke-RestMethod "https://api.github.com/repos/$($packageInfo.repoUrl)/releases/latest" -Headers $headers
@@ -20,18 +25,21 @@ foreach ($package in $packages) {
   $wingetLatestVersion = $wingetPackageList | Select-Object -Last 1 | Select-Object -ExpandProperty name
 
   $packageIdentifier = $packageInfo.packageIdentifier
-  if (-not $packageIdentifier){
+  if (-not $packageIdentifier) {
     # If no $packageIdentifier is defined in packages manifest, we construct one using the wingetManifestPath. Where the second last 
     # subpath is org name and last bit of path is package name
     $packageIdentifier = "$(($packageInfo.wingetManifestPath).split('/')[-2]).$(($packageInfo.wingetManifestPath).split('/')[-1])"
   }
   if ($latestVersion -ne $wingetLatestVersion) {
     Write-Host "Updating $($packageInfo.name) from '$wingetLatestVersion' to '$latestVersion'"
+    $wingetCmd = ".\wingetcreate.exe update $packageIdentifier -s -v $latestVersion -u $($latestVersionDownloadURL -join (' '))" + ' -t $($env:WINGET_PAT)'
+    Write-Host "Using cmd: $($wingetCmd)"
     # Download wingetcreate
-    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-
+    if (-not (Test-Path .\wingetcreate.exe)) {
+      Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+    }
     # Update the existing manifest
-    .\wingetcreate.exe update $packageIdentifier -s -v $latestVersion -u $($latestVersionDownloadURL -join (' ')) -t $($env:WINGET_PAT)
+    Invoke-Expression $wingetCmd -Verbose
   }
   else {
     Write-Host "Latest version of $($packageInfo.name) ($($latestVersion))  is already present in Winget."
