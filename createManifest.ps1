@@ -9,8 +9,8 @@ if ($env:GITHUB_TOKEN) {
 
 $packages = Get-ChildItem .\packages -Exclude schema.json
 foreach ($package in $packages) {
-  Write-Output "======== Working on Package $($package.Name) ========"
   $packageInfo = Get-Content -Raw $package | ConvertFrom-Json
+  Write-Host "`n======== Working on Package $($packageInfo.Name) ========" -ForegroundColor Green
   # Get Latest version of Package releases
   $req = Invoke-RestMethod "https://api.github.com/repos/$($packageInfo.repoUrl)/releases/latest" -Headers $headers
   # Get Latest version number, remove `v` from string
