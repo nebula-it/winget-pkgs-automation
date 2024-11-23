@@ -7,7 +7,7 @@ if ($env:GITHUB_TOKEN) {
   }
 }
 
-$packages = Get-ChildItem .\packages -Exclude schema.json
+$packages = Get-ChildItem .\packages\*.json -Exclude schema.json
 foreach ($package in $packages) {
   $packageInfo = Get-Content -Raw $package | ConvertFrom-Json
   Write-Host "`n======== Working on Package $($packageInfo.Name) ========" -ForegroundColor Green
