@@ -56,12 +56,9 @@ foreach ($package in $packages) {
     Invoke-Expression $wingetCmd | Tee-Object -Variable wingetOutput 
     # First we get the lines that says 'Pull request can be found here:'
     # Then split it at Spaces and get the last string, which is URL
-    Write-Debug "======== Start: Output of wingetCreate ============"
-    Write-Debug $wingetOutput
-    Write-Debug "======== End: Output of wingetCreate ============"
     $wingetPrURL = (($wingetOutput | Select-String -Pattern 'Pull request can be found here:\s+https:\/\/[\w\-\.\/]+').Matches[0] -split ' ')[-1]
 
-    Write-Host "PR URL: $wingetPrURL"
+    Write-Debug "PR URL: $wingetPrURL"
 
     # If a PR is successfully submitted then update the local manifest 
     if ($wingetPrURL) {
