@@ -24,15 +24,14 @@ foreach ($package in $packages) {
   # Get download url
   $latestVersionDownloadURL = $req.assets | Where-Object name -Match $downloadURLFilter | Select-Object -ExpandProperty browser_download_url
 
-  # Get contents of 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/Sidero/talosctl'
-  $wingetPackageList = Invoke-RestMethod "https://api.github.com/repos/microsoft/winget-pkgs/contents/$($packageInfo.wingetManifestPath)" -Headers $headers
-  
   # If the local manifest contains 'submittedVersion' we use that otherwise we get the latest version from winget
   if($packageInfo.submittedVersion){
     $wingetLatestVersion = $packageInfo.submittedVersion
     Write-Host "Retrived latest version $($wingetLatestVersion) from local manifest."
   }
   else {
+    # Get contents of winget manifest e.g 'https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/Sidero/talosctl'
+    $wingetPackageList = Invoke-RestMethod "https://api.github.com/repos/microsoft/winget-pkgs/contents/$($packageInfo.wingetManifestPath)" -Headers $headers
     $wingetLatestVersion = $wingetPackageList | Select-Object -Last 1 | Select-Object -ExpandProperty name
     Write-Host "submittedVersion not found in local manifest. Retreived $($wingetLatestVersion) from wingt."
   }
@@ -57,8 +56,9 @@ foreach ($package in $packages) {
     Invoke-Expression $wingetCmd | Tee-Object -Variable wingetOutput 
     # First we get the lines that says 'Pull request can be found here:'
     # Then split it at Spaces and get the last string, which is URL
-    Write-Host "======== Output of wingetCreate ============"
-    Write-Host $wingetOutput
+    Write-Debug "======== Start: Output of wingetCreate ============"
+    Write-Debug $wingetOutput
+    Write-Debug "======== End: Output of wingetCreate ============"
     $wingetPrURL = (($wingetOutput | Select-String -Pattern 'Pull request can be found here:\s+https:\/\/[\w\-\.\/]+').Matches[0] -split ' ')[-1]
 
     Write-Host "PR URL: $wingetPrURL"
