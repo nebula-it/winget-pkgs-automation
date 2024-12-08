@@ -1,8 +1,8 @@
-name: Update talosctl winget package-PUSH
+name: Update winget package-PUSH
 on: [push]
 jobs:
   winget:
-    name: Publish talosctl winget package
+    name: Publish winget package
     runs-on: windows-latest
     permissions:
       # Give the default GITHUB_TOKEN write permission to commit and push the
