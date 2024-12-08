@@ -2,5 +2,7 @@
   "name": "cilium",
   "repoUrl": "cilium/cilium-cli",
   "wingetManifestPath": "manifests/c/Cilium/CiliumCLI",
-  "packageIdentifier" : "Cilium.CiliumCLI"
+  "packageIdentifier": "Cilium.CiliumCLI",
+  "submittedVersion": "0.16.21",
+  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/197060"
 }
