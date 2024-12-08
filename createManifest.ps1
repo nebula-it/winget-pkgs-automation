@@ -25,6 +25,7 @@ foreach ($package in $packages) {
   $latestVersionDownloadURL = $req.assets | Where-Object name -Match $downloadURLFilter | Select-Object -ExpandProperty browser_download_url
 
   # If the local manifest contains 'submittedVersion' we use that otherwise we get the latest version from winget
+  # This is to solve the issue where we have submitted the PR for a new version but its not merged into winget yet
   if($packageInfo.submittedVersion){
     $wingetLatestVersion = $packageInfo.submittedVersion
     Write-Host "Retrived latest version $($wingetLatestVersion) from local manifest."
