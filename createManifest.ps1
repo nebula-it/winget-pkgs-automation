@@ -63,8 +63,8 @@ foreach ($package in $packages) {
 
     # If a PR is successfully submitted then update the local manifest 
     if ($wingetPrURL) {
-      $packageInfo | Add-Member -MemberType NoteProperty -Name submittedVersion -Value $latestVersion
-      $packageInfo | Add-Member -MemberType NoteProperty -Name submittedPrURL -Value $wingetPrURL
+      $packageInfo | Add-Member -MemberType NoteProperty -Name submittedVersion -Value $latestVersion -Force
+      $packageInfo | Add-Member -MemberType NoteProperty -Name submittedPrURL -Value $wingetPrURL -Force
       $packageInfo | ConvertTo-Json | Set-Content -Path $package
       git add $package
       git commit -m "Updated $($packageInfo.name) to version $($latestVersion)"
