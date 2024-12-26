@@ -3,6 +3,6 @@
   "repoUrl": "siderolabs/talos",
   "wingetManifestPath": "manifests/s/Sidero/talosctl",
   "packageIdentifier": "Sidero.talosctl",
-  "submittedVersion": "1.9.0",
-  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/198876"
+  "submittedVersion": "1.9.1",
+  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/202397"
 }
