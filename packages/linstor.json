@@ -2,8 +2,7 @@
   "name": "linstor",
   "repoUrl": "piraeusdatastore/kubectl-linstor",
   "wingetManifestPath": "manifests/p/Piraeus/linstor",
-  "packageIdentifier" : "Piraeus.linstor",
-  "submittedVersion": "0.3.1",
-  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/202105"
+  "packageIdentifier": "Piraeus.linstor",
+  "submittedVersion": "0.3.2",
+  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/212130"
 }
-
