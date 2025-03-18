@@ -20,7 +20,7 @@ foreach ($package in $packages) {
   # Get Latest version number, remove `v` from string
   $latestVersion = $req.tag_name.Replace('v', '')
   # Once winget has support for tar.gz , add `|tar\.gz` to extension filter
-  $downloadURLFilter = $package.downloadURLFilter ? $package.downloadURLFilter : '.*windows.*\.(zip|exe)$'
+  $downloadURLFilter = $packageInfo.downloadURLFilter ? $packageInfo.downloadURLFilter : '.*windows.*\.(zip|exe)$'
   # Get download url
   $latestVersionDownloadURL = $req.assets | Where-Object name -Match $downloadURLFilter | Select-Object -ExpandProperty browser_download_url
 
