@@ -3,6 +3,6 @@
   "repoUrl": "control-theory/gonzo",
   "wingetManifestPath": "manifests/c/control-theory/gonzo",
   "packageIdentifier": "control-theory.gonzo",
-  "submittedVersion": "0.2.0",
-  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/296139"
+  "submittedVersion": "0.2.1",
+  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/301115"
 }
