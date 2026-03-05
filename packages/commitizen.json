@@ -1,0 +1,8 @@
+{
+  "name": "commitizen",
+  "repoUrl": "shipengqi/commitizen",
+  "wingetManifestPath": "manifests/s/shipengqi/commitizen",
+  "packageIdentifier": "shipengqi.commitizen",
+  "submittedVersion": "2.3.5",
+  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/345711"
+}
