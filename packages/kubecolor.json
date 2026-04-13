@@ -3,6 +3,6 @@
   "repoUrl": "kubecolor/kubecolor",
   "wingetManifestPath": "manifests/k/Kubecolor/kubecolor",
   "packageIdentifier": "Kubecolor.kubecolor",
-  "submittedVersion": "0.5.3",
-  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/309587"
+  "submittedVersion": "0.6.0",
+  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/360166"
 }
