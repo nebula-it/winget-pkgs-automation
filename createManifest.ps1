@@ -45,7 +45,7 @@ foreach ($package in $packages) {
       # subpath is org name and last bit of path is package name
       $packageIdentifier = "$(($packageInfo.wingetManifestPath).split('/')[-2]).$(($packageInfo.wingetManifestPath).split('/')[-1])"
     }
-    $wingetCmd = ".\wingetcreate.exe update $packageIdentifier -s -v $latestVersion -u $($latestVersionDownloadURL -join (' '))" + ' -t $($env:WINGET_PAT)'
+    $wingetCmd = ".\wingetcreate.exe update $packageIdentifier -s -v $latestVersion -u $($latestVersionDownloadURL -join (' '))"
     Write-Host "Using cmd: $($wingetCmd)"
     # Download wingetcreate
     if (-not (Test-Path .\wingetcreate.exe)) {
