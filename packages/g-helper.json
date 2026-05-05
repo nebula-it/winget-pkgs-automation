@@ -1,0 +1,8 @@
+{
+  "name": "g-helper",
+  "repoUrl": "seerge/g-helper ",
+  "wingetManifestPath": "manifests/s/seerge/g-helper",
+  "packageIdentifier": "seerge.g-helper",
+  "submittedVersion": "0.243",
+  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/355970"
+}
