@@ -4,6 +4,6 @@
   "wingetManifestPath": "manifests/s/seerge/g-helper",
   "packageIdentifier": "seerge.g-helper",
   "downloadURLFilter": ".*exe$",
-  "submittedVersion": "0.269",
-  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/410205"
+  "submittedVersion": "0.274",
+  "submittedPrURL": "https://github.com/microsoft/winget-pkgs/pull/417112"
 }
